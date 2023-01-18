@@ -1,0 +1,38 @@
+{
+  "name": "simple-node-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon",
+    "dev:debug": "nodemon --inspect src/index.ts",
+    "build": "rimraf ./build && tsc",
+    "start": "npm run build && node build/index.js",
+    "start:debug": "npm start && node --inspect build/index.js",
+    "up": "docker-compose up -d",
+    "up-prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d",
+    "down": "docker-compose down",
+    "lint": "eslint src/**/*.ts --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^2.16.0",
+    "eslint": "^6.8.0",
+    "eslint-config-standard-with-typescript": "^11.0.1",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-node": "^9.2.0",
+    "lint-staged": "^12.3.8",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "git-commit-msg-linter": "^4.5.0",
+    "husky": "^8.0.3",
+    "nodemon": "^2.0.20",
+    "rimraf": "^4.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  }
+}
