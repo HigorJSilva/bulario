@@ -1,5 +1,5 @@
+import { ErrorPropertyInterface } from '@shared/helpers/AppResponse'
 import _ from 'lodash'
-import { ErrorPropertyInterface } from '../../../helpers/AppResponse'
 
 export function handleErrorMessage (erros: any[]): ErrorPropertyInterface {
   var grouped = _.groupBy(erros, function (item: {param: string}) {

@@ -1,5 +1,5 @@
+import AppResponse from '@shared/helpers/AppResponse'
 import { Request, Response, NextFunction } from 'express'
-import AppResponse from '../../../helpers/AppResponse'
 
 export = errorHandler;
 

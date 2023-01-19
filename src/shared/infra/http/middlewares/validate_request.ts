@@ -1,7 +1,7 @@
 import { validationResult } from 'express-validator'
 import { NextFunction, Request, Response } from 'express'
 import { handleErrorMessage } from './error_message_handler'
-import AppResponse from '../../../helpers/AppResponse'
+import AppResponse from '@shared/helpers/AppResponse'
 
 export function validateRequest (
   req: Request,
