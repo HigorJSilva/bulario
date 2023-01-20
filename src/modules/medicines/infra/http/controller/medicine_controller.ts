@@ -1,5 +1,7 @@
 
+import GetMedicineApiService from '@modules/medicines/services/get_medicine_api_service'
 import SearchMedicineApiService from '@modules/medicines/services/search_medicine_api_service'
+import AppResponse from '@shared/helpers/AppResponse'
 import { getSanitizedRequest } from '@shared/infra/http/middlewares/sanitize_request'
 import { NextFunction, Request, Response } from 'express'
 
@@ -11,6 +13,29 @@ class MedicineController {
 
     next()
     return response.json(medicines)
+  }
+
+  public async get (request: Request, response: Response, next: NextFunction): Promise<Response | null> {
+    try {
+      const { processNumber } = getSanitizedRequest(request)
+      const getMedicineService = new GetMedicineApiService()
+      const medicine = await getMedicineService.run(processNumber)
+
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      if (medicine) {
+        return response.status(200).json(AppResponse(true, null, medicine, null))
+      }
+
+      return response.status(422).json(AppResponse(false, null, null, medicine))
+    } catch (error) {
+      if ((error as Error).name === 'ApiError') {
+        (error as Error).name = 'ValidationError'
+      }
+
+      next(error)
+
+      return null
+    }
   }
 }
 export default MedicineController

@@ -12,3 +12,8 @@ export const fieldSizeMessage = (min: number | null, max?: number): string => {
 }
 
 export const requiredMessage = 'Required field'
+
+export const unauthenticatedUser = 'User not authenticated'
+
+export const unauthorizedUser = 'User not authorized'
+export const internalError = 'Internal error'
