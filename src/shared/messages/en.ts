@@ -1,0 +1,14 @@
+export const fieldSizeMessage = (min: number | null, max?: number): string => {
+  if (min != null && max != null) {
+    return `Field needs to be between ${min} and ${max} characters long`
+  }
+  if (min != null) {
+    return `Field needs to be at least ${min} characters long`
+  }
+  if (max != null) {
+    return `Field needs to be less than ${max} characters long`
+  }
+  return ''
+}
+
+export const requiredMessage = 'Required field'
