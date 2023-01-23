@@ -18,4 +18,4 @@ export const unauthenticatedUser = 'User not authenticated'
 export const unauthorizedUser = 'User not authorized'
 export const internalError = 'Internal error'
 
-export const notFound = (resource: string): String => '$resource Not found'
+export const notFound = (resource: string): String => `${resource} not found`
