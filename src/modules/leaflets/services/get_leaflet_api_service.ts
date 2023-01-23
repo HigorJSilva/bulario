@@ -23,7 +23,7 @@ class GetLeafletApiService {
 
       leafletPdf = await response.buffer()
     } catch (error) {
-      console.log('TURBO >> file: get_leaflet_api_service.ts:30 >> GetLeafletApiService >> error', error)
+      throw new Error('ApiError')
     } finally {
       clearTimeout(timeout)
     }

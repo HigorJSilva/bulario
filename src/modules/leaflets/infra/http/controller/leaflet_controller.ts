@@ -6,19 +6,23 @@ import { notFound } from '@shared/messages/en'
 import { NextFunction, Request, Response } from 'express'
 
 class LeafletController {
-  public async get (request: Request, response: Response, _: NextFunction): Promise<Response> {
-    const { leafletId } = getSanitizedRequest(request)
-    const getLeafletService = new GetLeafletApiService()
-    const leafletPdf = await getLeafletService.run(leafletId)
+  public async get (request: Request, response: Response, next: NextFunction): Promise<Response | undefined> {
+    try {
+      const { leafletId } = getSanitizedRequest(request)
+      const getLeafletService = new GetLeafletApiService()
+      const leafletPdf = await getLeafletService.run(leafletId)
 
-    if (!leafletPdf) {
-      return response.json(AppResponse(false, notFound('Leaflet'), null, null))
+      if (!leafletPdf) {
+        return response.json(AppResponse(false, notFound('Leaflet'), null, null))
+      }
+
+      const leafletAstextService = new GetLeafletAsTextService()
+      const leafletText = await leafletAstextService.run(leafletPdf)
+
+      return response.json(AppResponse(true, null, leafletText, null))
+    } catch (error) {
+      next(error)
     }
-
-    const leafletAstextService = new GetLeafletAsTextService()
-    const leafletText = await leafletAstextService.run(leafletPdf)
-
-    return response.json(AppResponse(true, null, leafletText, null))
   }
 }
 
