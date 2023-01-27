@@ -21,7 +21,6 @@ class MedicineController {
       const getMedicineService = new GetMedicineApiService()
       const medicine = await getMedicineService.run(processNumber)
 
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (medicine) {
         return response.status(200).json(AppResponse(true, null, medicine, null))
       }
