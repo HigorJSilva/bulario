@@ -23,7 +23,10 @@ class GetLeafletApiService {
 
       leafletPdf = await response.buffer()
     } catch (error) {
-      throw new Error('ApiError')
+      const apiError = Error('Invalid leafletId')
+
+      apiError.name = 'ApiError'
+      throw apiError
     } finally {
       clearTimeout(timeout)
     }
