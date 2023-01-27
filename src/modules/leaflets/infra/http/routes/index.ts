@@ -8,5 +8,6 @@ const router = express.Router()
 const leafletController = new LeafletController()
 
 router.post('/', GetLeafletRequest, validateRequest, leafletController.get)
+router.post('/pdf', GetLeafletRequest, validateRequest, leafletController.getLeafletAsPdf)
 
 export default router

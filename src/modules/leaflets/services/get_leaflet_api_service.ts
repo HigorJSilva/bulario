@@ -3,7 +3,7 @@ import https from 'https'
 import AbortController from '@shared/infra/http/helpers/AbortRequest'
 
 class GetLeafletApiService {
-  public async run (leafletId: string): Promise<any | undefined> {
+  public async run (leafletId: string): Promise<Buffer | undefined> {
     const controller = AbortController.getController()
     const timeout = AbortController.getTimeout()
     let leafletPdf
