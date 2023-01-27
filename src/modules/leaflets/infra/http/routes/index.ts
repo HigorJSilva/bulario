@@ -9,5 +9,6 @@ const leafletController = new LeafletController()
 
 router.post('/', GetLeafletRequest, validateRequest, leafletController.get)
 router.post('/pdf', GetLeafletRequest, validateRequest, leafletController.getLeafletAsPdf)
+router.post('/side-effects', GetLeafletRequest, validateRequest, leafletController.getSideEffects)
 
 export default router
