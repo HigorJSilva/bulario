@@ -14,8 +14,6 @@ class RedisCache implements ICacheProvider {
   }
 
   public async save (key: string, value: any): Promise<void> {
-    console.log('TURBO >> file: redis.ts:16 >> RedisCache >> value', value)
-    console.log('TURBO >> file: redis.ts:16 >> RedisCache >> key', key)
     await this.client.set(key, JSON.stringify(value))
   }
 

@@ -10,6 +10,8 @@ services:
       - ./src:/home/node/app/src
       - ./nodemon.json:/home/node/app/nodemon.json
     container_name: ts-node-docker
+    env_file:
+      - .env
     expose:
       - '4000'
     ports:
