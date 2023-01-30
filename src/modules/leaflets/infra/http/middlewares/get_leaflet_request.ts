@@ -3,5 +3,7 @@ import { body } from 'express-validator'
 
 export const GetLeafletRequest = [
   body('leafletId')
-    .notEmpty().withMessage(requiredMessage).bail()
+    .notEmpty().withMessage(requiredMessage),
+  body('registryNumber')
+    .notEmpty().withMessage(requiredMessage)
 ]
