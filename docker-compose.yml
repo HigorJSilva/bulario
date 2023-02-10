@@ -26,3 +26,10 @@ services:
     ports:
       - '6379:6379'
     command: redis-server --save 20 1 --loglevel warning
+  mongo:
+    image: mongo:5.0
+    restart: always
+    volumes:
+      - /data/db
+    ports:
+      - "27017:27017"
