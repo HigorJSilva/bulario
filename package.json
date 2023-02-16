@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon",
     "dev:debug": "nodemon --inspect src/index.ts",
-    "build": "rimraf ./build && tsc",
+    "build": "rimraf ./build && tsc && resolve-tspaths",
     "start": "npm run build && node build/index.js",
     "start:debug": "npm start && node --inspect build/index.js",
     "up": "docker-compose up -d",
@@ -50,6 +50,7 @@
     "lodash": "^4.17.21",
     "mongodb": "^5.0.1",
     "node-fetch": "^2.6.8",
-    "pdf-parse": "^1.1.1"
+    "pdf-parse": "^1.1.1",
+    "resolve-tspaths": "^0.8.8"
   }
 }
