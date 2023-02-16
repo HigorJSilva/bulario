@@ -10,7 +10,7 @@ class DatabaseService {
     switch (type) {
       case 'mongodb':
         // eslint-disable-next-line no-case-declarations
-        const mongoDB = MongoDB.getInstance(databaseConfig.config.mongodb.url as string)
+        const mongoDB = MongoDB.getInstance(databaseConfig.config.mongodb.url)
 
         mongoDB.connect().then(() => {
           this.db = mongoDB.getDB()

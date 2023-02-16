@@ -1,3 +1,5 @@
+import env from './env'
+
 export interface IDBConfig {
   config: {
     mongodb: {url: string}
@@ -8,16 +10,16 @@ export interface IDBConfig {
 const databaseConfig = {
   config: {
     mongodb: {
-      url: process.env.MONGO_URL_CONNECTION
+      url: env.mongoUrlConnection
     },
     mysql: {
-      host: process.env.MYSQL_HOST,
-      user: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
-      database: process.env.MYSQL_DATABASE
+      host: env.mysqlHost,
+      user: env.mysqlUser,
+      password: env.mysqlPassword,
+      database: env.mysqlDatabase
     }
   },
-  driver: process.env.DATABASE_DRIVER
+  driver: env.databaseDriver
 }
 
 export default databaseConfig

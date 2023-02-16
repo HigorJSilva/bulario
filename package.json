@@ -37,6 +37,7 @@
     "git-commit-msg-linter": "^4.5.0",
     "husky": "^8.0.3",
     "lint-staged": "^12.5.0",
+    "module-alias": "^2.2.2",
     "nodemon": "^2.0.20",
     "rimraf": "^4.1.0",
     "ts-node": "^10.9.1",
@@ -51,5 +52,10 @@
     "mongodb": "^5.0.1",
     "node-fetch": "^2.6.8",
     "pdf-parse": "^1.1.1"
+  },
+  "_moduleAliases": {
+    "@shared": "./build/shared",
+    "@modules": "./build/modules",
+    "@config": "./build/config"
   }
 }
