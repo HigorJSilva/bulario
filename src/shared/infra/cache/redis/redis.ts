@@ -9,9 +9,14 @@ class RedisCache implements ICacheProvider {
   constructor () {
     if (!this.connected) {
       this.client = new Redis(cacheConfig.config.redis)
-      console.log('Redis running')
-      this.connected = true
+        .on('error', function (error) {
+          console.dir(`Redis error: ${error}`)
+        }).on('connect', function () {
+          console.log('Redis running')
+        })
     }
+
+    this.connected = true
   }
 
   public async save (key: string, value: any): Promise<void> {

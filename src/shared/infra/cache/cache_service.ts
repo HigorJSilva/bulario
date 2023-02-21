@@ -9,7 +9,6 @@ class CacheService {
     const type = cacheConfig.driver
     switch (type) {
       case 'redis':
-        // eslint-disable-next-line no-case-declarations
         this.cache = RedisCache
 
         break
