@@ -14,7 +14,8 @@
     "up-prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d",
     "down": "docker-compose down",
     "lint": "eslint src/**/*.ts --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js"
   },
   "keywords": [],
   "author": "",
@@ -48,9 +49,11 @@
     "express-validator": "^6.14.2",
     "ioredis": "^5.3.0",
     "lodash": "^4.17.21",
-    "mongodb": "^5.0.1",
+    "mongodb": "^3.7.3",
     "node-fetch": "^2.6.8",
     "pdf-parse": "^1.1.1",
-    "resolve-tspaths": "^0.8.8"
+    "reflect-metadata": "^0.1.13",
+    "resolve-tspaths": "^0.8.8",
+    "typeorm": "^0.3.12"
   }
 }

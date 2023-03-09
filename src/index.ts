@@ -1,10 +1,15 @@
-import CacheService from '@shared/infra/cache/cache_service'
-import DatabaseService from '@shared/infra/db/database_service'
+import 'reflect-metadata'
 import server from './shared/infra/http/app'
-// eslint-disable-next-line no-new
-DatabaseService.getInstance()
-CacheService.getInstance()
+import AppDataSource from '@shared/infra/db'
 
-export = server.listen(4000, () => {
-  console.log('Server running')
-});
+AppDataSource.initialize()
+  .then(() => {
+    console.log('Data Source running!')
+
+    server.listen(4000, () => {
+      console.log('Server running')
+    })
+  })
+  .catch((err) => {
+    console.error('Error during Data Source initialization', err)
+  })
