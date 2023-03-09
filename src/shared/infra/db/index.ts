@@ -10,13 +10,8 @@ const AppDataSource = new DataSource({
   synchronize: false,
   migrations: [
     './migrations/*.ts'
-  ]
+  ],
+  entities: ['**/db/models/*.ts']
 })
 
-AppDataSource.initialize()
-  .then(() => {
-    console.log('Data Source running!')
-  })
-  .catch((err) => {
-    console.error('Error during Data Source initialization', err)
-  })
+export default AppDataSource

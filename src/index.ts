@@ -1,10 +1,15 @@
 import 'reflect-metadata'
-import CacheService from '@shared/infra/cache/cache_service'
 import server from './shared/infra/http/app'
-import '@shared/infra/db'
+import AppDataSource from '@shared/infra/db'
 
-CacheService.getInstance()
+AppDataSource.initialize()
+  .then(() => {
+    console.log('Data Source running!')
 
-export = server.listen(4000, () => {
-  console.log('Server running')
-});
+    server.listen(4000, () => {
+      console.log('Server running')
+    })
+  })
+  .catch((err) => {
+    console.error('Error during Data Source initialization', err)
+  })
