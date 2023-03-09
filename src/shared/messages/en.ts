@@ -14,8 +14,9 @@ export const fieldSizeMessage = (min: number | null, max?: number): string => {
 export const requiredMessage = 'Required field'
 
 export const unauthenticatedUser = 'User not authenticated'
-
 export const unauthorizedUser = 'User not authorized'
 export const internalError = 'Internal error'
+
+export const emailNotUnique = 'Email address already used.'
 
 export const notFound = (resource: string): String => `${resource} not found`
