@@ -10,6 +10,8 @@ export default {
   mysqlHost: process.env.MYSQL_HOST || '127,.0.0.1',
   mysqlUser: process.env.MYSQL_USER || 'user',
   mysqlPassword: process.env.MYSQL_PASSWORD || 'root',
-  mysqlDatabase: process.env.MYSQL_DATABASE || 'bulario'
+  mysqlDatabase: process.env.MYSQL_DATABASE || 'bulario',
+
+  appSecret: process.env.APP_SECRET ?? '389127R8232HDAS7dwasd7'
 
 }

@@ -6,7 +6,10 @@ import { IHashProvider } from '@shared/data/hash_provider_interface'
 import BcryptHashProvider from '@shared/infra/hash/bcrypt_hash_provider'
 import { ICacheProvider } from '@shared/data/cache_provider_interface'
 import RedisCache from '@shared/infra/cache/redis/redis'
+import JwtProvider from '@shared/infra/jwt/jwtProvider'
+import { IJwtProvider } from '@shared/data/jwt_provider_interface'
 
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository)
 container.registerSingleton<IHashProvider>('HashProvider', BcryptHashProvider)
 container.registerSingleton<ICacheProvider>('CacheProvider', RedisCache)
+container.registerSingleton<IJwtProvider>('JwtProvider', JwtProvider)

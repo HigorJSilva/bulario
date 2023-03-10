@@ -18,6 +18,7 @@ export const unauthorizedUser = 'User not authorized'
 export const internalError = 'Internal error'
 
 export const emailNotUnique = 'Email address already used.'
+export const userCredsMatch = 'Email or password does not match.'
 export const emailNotValid = 'Email provided is not valid'
 export const weakPassword = 'Password is too weak'
 
