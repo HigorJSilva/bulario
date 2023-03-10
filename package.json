@@ -55,6 +55,7 @@
     "pdf-parse": "^1.1.1",
     "reflect-metadata": "^0.1.13",
     "resolve-tspaths": "^0.8.8",
+    "tsyringe": "^4.7.0",
     "typeorm": "^0.3.12"
   }
 }

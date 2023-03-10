@@ -1,12 +1,17 @@
 import { IHashProvider } from '@shared/data/hash_provider_interface'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { injectable, inject } from 'tsyringe'
 import { emailNotUnique } from '@shared/messages/en'
 import { IUsersRepository } from '../data/users_repository_interface'
 import { ICreateUser } from '../domain/create_user_interface'
 import { IUser } from '../domain/user_interface'
 
+@injectable()
 class CreateUserService {
   constructor (
+    @inject('UsersRepository')
     private readonly usersRepository: IUsersRepository,
+    @inject('HashProvider')
     private readonly hashProvider: IHashProvider
   ) {}
 

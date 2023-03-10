@@ -7,6 +7,11 @@ import {
   ObjectIdColumn
 } from 'typeorm'
 
+export enum UserRole {
+    ADMIN = "admin",
+    USER = "user",
+}
+
 @Entity('users')
 class User implements IUser {
   @ObjectIdColumn()
@@ -20,6 +25,12 @@ class User implements IUser {
 
   @Column()
   password: string
+
+  @Column({
+        type: "enum",
+        enum: UserRole,
+        default: UserRole.USER,
+    })
 
   @CreateDateColumn()
   created_at: Date
