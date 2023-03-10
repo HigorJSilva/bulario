@@ -1,6 +1,6 @@
 import express from 'express'
 import errorHandler from './middlewares/error_handler'
-import './shared/helpers/container'
+import '@shared/helpers/container'
 import routes from './routes'
 
 const application = express()
