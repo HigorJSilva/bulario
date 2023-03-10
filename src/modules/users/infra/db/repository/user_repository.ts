@@ -27,11 +27,22 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async findByEmail (email: string): Promise<IUser | null> {
-    const customer = await this.ormRepository.findOneBy({
+    const user = await this.ormRepository.findOneBy({
       email
     })
 
-    return customer
+    return user
+  }
+
+  public async findById (id: string): Promise<IUser | null> {
+    const ObjectId = require('mongodb').ObjectId
+
+    const user = await this.ormRepository.findOneBy({
+      // @ts-expect-error
+      _id: new ObjectId(id)
+    })
+
+    return user
   }
 }
 

@@ -31,6 +31,7 @@ class User implements IUser {
         enum: UserRole,
         default: UserRole.USER,
     })
+  role: UserRole
 
   @CreateDateColumn()
   created_at: Date
