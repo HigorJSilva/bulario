@@ -6,14 +6,17 @@ import AppResponse from '@shared/helpers/AppResponse'
 import { getSanitizedRequest } from '@shared/infra/http/middlewares/sanitize_request'
 import { notFound } from '@shared/messages/en'
 import { NextFunction, Request, Response } from 'express'
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { inject, injectable } from 'tsyringe'
+@injectable()
 class LeafletController {
-  private readonly cacheProvider
-  constructor (cacheProvider: ICacheProvider) {
+  constructor (
+    @inject('CacheProvider')
+    private readonly cacheProvider: ICacheProvider
+  ) {
     this.get = this.get.bind(this)
     this.getLeafletAsPdf = this.getLeafletAsPdf.bind(this)
     this.getSideEffects = this.getSideEffects.bind(this)
-    this.cacheProvider = cacheProvider
   }
 
   public async get (request: Request, response: Response, next: NextFunction): Promise<Response | undefined> {
