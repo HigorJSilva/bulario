@@ -43,6 +43,15 @@ class MedicationsRepository implements IMedicationsRepository {
 
     return medications
   }
+
+  public async deleteById (id: string): Promise<void> {
+    const ObjectId = require('mongodb').ObjectId
+
+    await this.ormRepository.delete({
+
+      id: new ObjectId(id)
+    })
+  }
 }
 
 export default MedicationsRepository

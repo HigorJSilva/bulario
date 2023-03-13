@@ -8,4 +8,5 @@ export interface IMedicationsRepository {
   save(data: Medications): Promise<Medications>
   findById(id: string): Promise<Medications | null>
   findByUser(userId: string): Promise<Medications[] | null>
+  deleteById(id: string): Promise<void>
 }

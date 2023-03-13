@@ -19,10 +19,14 @@ class Medications implements IMedications {
   @Column()
   name: string
 
-  @ManyToOne(() => User, (user) => user.medications)
+  @ManyToOne(() => User, (user) => user.medications, {
+    onDelete: 'NO ACTION',
+  })
   user: User
 
-  @OneToMany(() => Medicines, (medicines) => medicines.medication)
+  @OneToMany(() => Medicines, (medicines) => medicines.medication, {
+    onDelete: 'SET NULL',
+  })
   medicines: Medicines[]
 
   @CreateDateColumn()
