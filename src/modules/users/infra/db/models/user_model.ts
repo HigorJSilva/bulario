@@ -1,10 +1,12 @@
+import Medications from '@modules/medications/infra/db/models/medications_model'
 import { IUser } from '@modules/users/domain/user_interface'
 import {
   Column,
   Entity,
   UpdateDateColumn,
   CreateDateColumn,
-  ObjectIdColumn
+  ObjectIdColumn,
+  OneToMany
 } from 'typeorm'
 
 export enum UserRole {
@@ -27,11 +29,14 @@ class User implements IUser {
   password: string
 
   @Column({
-        type: "enum",
-        enum: UserRole,
-        default: UserRole.USER,
-    })
+    type: "enum",
+    enum: UserRole,
+    default: UserRole.USER,
+  })
   role: UserRole
+
+  @OneToMany(() => Medications, (medication) => medication.user)
+  medications: Medications[]
 
   @CreateDateColumn()
   created_at: Date
