@@ -1,9 +1,8 @@
 import Redis, { Redis as RedisClient } from 'ioredis'
 import cacheConfig from '@config/cache'
-import { ICacheProvider } from '@shared/data/cache_provider_interface'
 
-class RedisCache implements ICacheProvider {
-  private readonly client!: RedisClient;
+class RedisCache {
+  public readonly client: RedisClient;
   private readonly connected: boolean = false;
 
   constructor () {
@@ -40,4 +39,4 @@ class RedisCache implements ICacheProvider {
   }
 }
 
-export default new RedisCache()
+export default RedisCache

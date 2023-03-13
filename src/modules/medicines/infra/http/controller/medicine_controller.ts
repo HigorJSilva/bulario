@@ -27,10 +27,6 @@ class MedicineController {
 
       return response.status(422).json(AppResponse(false, null, null, medicine))
     } catch (error) {
-      if ((error as Error).name === 'ApiError') {
-        (error as Error).name = 'ValidationError'
-      }
-
       next(error)
 
       return null

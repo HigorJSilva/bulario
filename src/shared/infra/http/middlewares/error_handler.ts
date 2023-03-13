@@ -1,3 +1,4 @@
+import { UnauthenticatedError, UnauthorizedError, ValidationError } from '@shared/exceptions'
 import AppResponse from '@shared/helpers/AppResponse'
 import { internalError, unauthenticatedUser, unauthorizedUser } from '@shared/messages/en'
 import { Request, Response, NextFunction } from 'express'
@@ -5,8 +6,8 @@ import { Request, Response, NextFunction } from 'express'
 export = errorHandler;
 
 function errorHandler (err: TypeError, _: Request, res: Response, next: NextFunction): void {
-  switch (err.name) {
-    case 'UnauthorizedError':
+  switch (true) {
+    case err instanceof UnauthorizedError:
       res.status(403).json(
         AppResponse(
           false,
@@ -17,7 +18,7 @@ function errorHandler (err: TypeError, _: Request, res: Response, next: NextFunc
       )
       break
 
-    case 'UnauthenticatedError':
+    case err instanceof UnauthenticatedError:
       res.status(401).json(
         AppResponse(
           false,
@@ -28,7 +29,7 @@ function errorHandler (err: TypeError, _: Request, res: Response, next: NextFunc
       )
       break
 
-    case 'ValidationError':
+    case err instanceof ValidationError:
       res.status(422).json(
         AppResponse(
           false,
