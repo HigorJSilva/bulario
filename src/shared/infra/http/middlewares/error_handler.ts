@@ -41,8 +41,6 @@ function errorHandler (err: TypeError, _: Request, res: Response, next: NextFunc
       break
 
     default:
-      console.log(err)
-
       res.status(500).json(
         AppResponse(
           false,

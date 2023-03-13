@@ -22,7 +22,7 @@ class MedicationsRepository implements IMedicationsRepository {
     return medication
   }
 
-  public async findById (id: string): Promise<IMedications | null> {
+  public async findById (id: string): Promise<Medications | null> {
     const ObjectId = require('mongodb').ObjectId
 
     const medication = await this.ormRepository.findOneBy({
@@ -33,7 +33,7 @@ class MedicationsRepository implements IMedicationsRepository {
     return medication
   }
 
-  public async findByUser (userId: string): Promise<IMedications[] | null> {
+  public async findByUser (userId: string): Promise<Medications[] | null> {
     const ObjectId = require('mongodb').ObjectId
 
     const medications = await this.ormRepository.findBy({

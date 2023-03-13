@@ -25,4 +25,4 @@ export const weakPassword = 'Password is too weak'
 export const invalidProcessNumber = 'Invalid process number'
 export const invalidLeafletId = 'Invalid leafletId'
 
-export const notFound = (resource: string): String => `${resource} not found`
+export const notFound = (resource: string): string => `${resource} not found`
