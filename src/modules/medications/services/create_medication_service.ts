@@ -7,12 +7,12 @@ import { IMedications } from '@modules/medications/domain/medications_interface'
 @injectable()
 class CreateMedicationService {
   constructor (
-    @inject('MedicationRepository')
+    @inject('MedicationsRepository')
     private readonly medicationsRepository: IMedicationsRepository
   ) {}
 
-  public async run ({ name, medicines, userId }: ICreateMedication): Promise<IMedications> {
-    const medication = await this.medicationsRepository.create({ name, medicines, userId })
+  public async run ({ name, userId }: ICreateMedication): Promise<IMedications> {
+    const medication = await this.medicationsRepository.create({ name, userId })
 
     return medication
   }
