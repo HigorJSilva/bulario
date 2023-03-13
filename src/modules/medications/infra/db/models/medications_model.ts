@@ -16,6 +16,9 @@ class Medications implements IMedications {
   @ObjectIdColumn()
   id: string
 
+  @Column()
+  name: string
+
   @ManyToOne(() => User, (user) => user.medications)
   user: User
 

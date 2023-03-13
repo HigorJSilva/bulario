@@ -17,6 +17,9 @@ class Medicines implements IMedicines {
   @Column()
   registryNumber: string
 
+  @Column()
+  name: string
+
   @ManyToOne(() => Medications, (medications) => medications.medicines)
   medication: Medications
 
