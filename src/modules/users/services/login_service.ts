@@ -6,6 +6,7 @@ import { IUsersRepository } from '../data/users_repository_interface'
 import { ILoggedUser } from '../domain/logged_user_interface'
 import { ILoginUser } from '../domain/login_user_interface'
 import { IJwtProvider } from '@shared/data/jwt_provider_interface'
+import { ValidationError } from '@shared/exceptions'
 
 @injectable()
 class LoginService {
@@ -22,17 +23,13 @@ class LoginService {
     const userExists = await this.usersRepository.findByEmail(loginData.email)
 
     if (!userExists) {
-      const error = Error(userCredsMatch)
-      error.name = 'ValidationError'
-      throw error
+      throw new ValidationError(userCredsMatch)
     }
 
     const matchPassword = await this.hashProvider.compareHash(loginData.password, userExists.password)
 
     if (!matchPassword) {
-      const error = Error(userCredsMatch)
-      error.name = 'ValidationError'
-      throw error
+      throw new ValidationError(userCredsMatch)
     }
 
     const { password, ...protectedUser } = userExists

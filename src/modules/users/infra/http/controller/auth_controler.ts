@@ -11,10 +11,6 @@ class AuthController {
       next()
       return response.json(user)
     } catch (error) {
-      if ((error as Error).name === 'ApiError') {
-        (error as Error).name = 'ValidationError'
-      }
-
       next(error)
     }
   }

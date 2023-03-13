@@ -5,6 +5,7 @@ import { emailNotUnique } from '@shared/messages/en'
 import { IUsersRepository } from '../data/users_repository_interface'
 import { ICreateUser } from '../domain/create_user_interface'
 import { IUser } from '../domain/user_interface'
+import { ValidationError } from '@shared/factories/makeValidationError'
 
 @injectable()
 class CreateUserService {
@@ -19,9 +20,7 @@ class CreateUserService {
     const emailExists = await this.usersRepository.findByEmail(email)
 
     if (emailExists) {
-      const error = Error(emailNotUnique)
-      error.name = 'ValidationError'
-      throw error
+      throw new ValidationError(emailNotUnique)
     }
 
     const hashedPassword = await this.hashProvider.generateHash(password)

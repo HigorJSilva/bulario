@@ -1,6 +1,8 @@
 import fetch from 'node-fetch'
 import { Medicine } from '../domain/models/medicine'
 import https from 'https'
+import { invalidProcessNumber } from '@shared/messages/en'
+import { ValidationError } from '@shared/exceptions'
 
 class GetMedicineApiService {
   public async run (processNumber: string): Promise<Medicine> {
@@ -17,9 +19,7 @@ class GetMedicineApiService {
     })
 
     if (api.headers.get('content-encoding') !== 'gzip') {
-      const apiError = Error('Invalid process number')
-      apiError.name = 'ApiError'
-      throw apiError
+      throw new ValidationError(invalidProcessNumber)
     }
     const response = await api.json()
 

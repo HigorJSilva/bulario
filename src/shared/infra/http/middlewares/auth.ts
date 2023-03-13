@@ -1,7 +1,7 @@
 import { IUsersRepository } from '@modules/users/data/users_repository_interface'
 import { IUser } from '@modules/users/domain/user_interface'
 import { IJwtProvider } from '@shared/data/jwt_provider_interface'
-import { unauthenticatedUser, unauthorizedUser } from '@shared/messages/en'
+import { UnauthenticatedError, UnauthorizedError } from '@shared/exceptions'
 import { Request, Response, NextFunction } from 'express'
 import { container } from 'tsyringe'
 
@@ -15,10 +15,7 @@ export function authorize (roles: string[] | string = []): any {
       const token = req.headers.authorization as string
 
       if (!token) {
-        const unAuthenticatedError = Error(unauthenticatedUser)
-
-        unAuthenticatedError.name = 'UnauthenticatedError'
-        next(unAuthenticatedError)
+        next(new UnauthenticatedError())
         return
       }
 
@@ -29,20 +26,14 @@ export function authorize (roles: string[] | string = []): any {
       const user: IUser | null = await usersRepository.findById(decodedToken.id)
 
       if (!user) {
-        const unAuthenticatedError = Error(unauthenticatedUser)
-
-        unAuthenticatedError.name = 'UnauthenticatedError'
-        next(unAuthenticatedError)
+        next(new UnauthenticatedError())
         return
       }
 
       req.params.userId = user.id
 
       if (roles.length && !roles.includes(user.role)) {
-        const unauthorizedError = Error(unauthorizedUser)
-
-        unauthorizedError.name = 'UnauthorizedError'
-        next(unauthorizedError)
+        next(new UnauthorizedError())
         return
       }
       next()

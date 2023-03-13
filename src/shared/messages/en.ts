@@ -22,4 +22,7 @@ export const userCredsMatch = 'Email or password does not match.'
 export const emailNotValid = 'Email provided is not valid'
 export const weakPassword = 'Password is too weak'
 
+export const invalidProcessNumber = 'Invalid process number'
+export const invalidLeafletId = 'Invalid leafletId'
+
 export const notFound = (resource: string): String => `${resource} not found`

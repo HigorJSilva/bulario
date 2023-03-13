@@ -1,6 +1,8 @@
 import fetch, { RequestInit } from 'node-fetch'
 import https from 'https'
 import AbortController from '@shared/infra/http/helpers/AbortRequest'
+import { invalidLeafletId } from '@shared/messages/en'
+import { ValidationError } from '@shared/factories/makeValidationError'
 
 class GetLeafletApiService {
   public async run (leafletId: string): Promise<Buffer | undefined> {
@@ -23,10 +25,7 @@ class GetLeafletApiService {
 
       leafletPdf = await response.buffer()
     } catch (error) {
-      const apiError = Error('Invalid leafletId')
-
-      apiError.name = 'ApiError'
-      throw apiError
+      throw new ValidationError(invalidLeafletId)
     } finally {
       clearTimeout(timeout)
     }

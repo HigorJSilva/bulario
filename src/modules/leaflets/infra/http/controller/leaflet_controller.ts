@@ -34,10 +34,6 @@ class LeafletController {
 
       return response.json(AppResponse(true, null, leafletText, null))
     } catch (error) {
-      if ((error as Error).name === 'ApiError') {
-        (error as Error).name = 'ValidationError'
-      }
-
       next(error)
     }
   }
@@ -61,10 +57,6 @@ class LeafletController {
 
       return response.end(leafletPdf)
     } catch (error) {
-      if ((error as Error).name === 'ApiError') {
-        (error as Error).name = 'ValidationError'
-      }
-
       next(error)
     }
   }
@@ -86,10 +78,6 @@ class LeafletController {
 
       return response.json(AppResponse(true, null, sideEffects, null))
     } catch (error) {
-      if ((error as Error).name === 'ApiError') {
-        (error as Error).name = 'ValidationError'
-      }
-
       next(error)
     }
   }
