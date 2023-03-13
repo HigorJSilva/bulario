@@ -9,6 +9,7 @@ import { UpdateMedicationRequest } from '../middlewares/update_medication_reques
 const router = express.Router()
 const medicationController = new MedicationController()
 
+router.get('/', authorize(), medicationController.list)
 router.post('/', authorize(), CreateMedicationRequest, validateRequest, medicationController.create)
 router.put('/:id', authorize(), UpdateMedicationRequest, validateRequest, medicationController.update)
 
