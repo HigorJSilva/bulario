@@ -1,5 +1,5 @@
-import { ICreateMedication } from '@modules/medications/domain/create_medication_interface'
 import { IMedications } from '@modules/medications/domain/medications_interface'
+import { ICreateMedication } from '../domain/create_medication_interface'
 
 export interface IMedicationsRepository {
 
