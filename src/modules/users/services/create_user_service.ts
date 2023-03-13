@@ -5,7 +5,7 @@ import { emailNotUnique } from '@shared/messages/en'
 import { IUsersRepository } from '../data/users_repository_interface'
 import { ICreateUser } from '../domain/create_user_interface'
 import { IUser } from '../domain/user_interface'
-import { ValidationError } from '@shared/factories/makeValidationError'
+import { ValidationError } from '@shared/exceptions'
 
 @injectable()
 class CreateUserService {
