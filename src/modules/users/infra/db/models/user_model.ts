@@ -5,8 +5,8 @@ import {
   Entity,
   UpdateDateColumn,
   CreateDateColumn,
-  ObjectIdColumn,
-  OneToMany
+  OneToMany,
+  PrimaryGeneratedColumn
 } from 'typeorm'
 
 export enum UserRole {
@@ -16,7 +16,7 @@ export enum UserRole {
 
 @Entity('users')
 class User implements IUser {
-  @ObjectIdColumn()
+ @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()

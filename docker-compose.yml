@@ -33,3 +33,24 @@ services:
       - /data/db
     ports:
       - "27017:27017"
+  mysql:
+    image: woahbase/alpine-mysql:x86_64
+    container_name: docker_mysql
+    hostname: mysql
+    environment:
+      - PGID=100
+      - PUID=1000
+      - MYSQL_ROOT_PWD=password
+      - MYSQL_USER=mysql
+      - MYSQL_USER_PWD=password
+      - MYSQL_USER_DB=bulario
+    ports:
+      - "3326:3306"
+    volumes:
+      - data:/var/lib/mysql
+      - /etc/hosts:/etc/hosts:ro
+      - /etc/localtime:/etc/localtime:ro
+    command: ["sh", "-c", "tail -f /dev/null"]
+
+volumes:
+  data:
