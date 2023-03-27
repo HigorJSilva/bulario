@@ -31,9 +31,13 @@ class MedicationsRepository implements IMedicationsRepository {
   }
 
   public async findByUser (userId: string): Promise<Medications[] | null> {
-    console.log('TURBO >> file: medications_repository.ts:34 >> MedicationsRepository >> userId:', userId)
-    const medications = await this.ormRepository.findBy({
-      userId
+    const medications = await this.ormRepository.find({
+      relations: {
+        medicines: true
+      },
+      where: {
+        userId
+      }
     })
 
     return medications
@@ -41,7 +45,6 @@ class MedicationsRepository implements IMedicationsRepository {
 
   public async deleteById (id: string): Promise<void> {
     await this.ormRepository.delete({
-
       id
     })
   }
