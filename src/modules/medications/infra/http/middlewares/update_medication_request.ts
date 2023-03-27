@@ -6,5 +6,4 @@ export const UpdateMedicationRequest = [
     .notEmpty().withMessage(requiredMessage),
   param('id')
     .notEmpty().withMessage(requiredMessage)
-    .isMongoId()
 ]
