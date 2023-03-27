@@ -23,33 +23,26 @@ class MedicationsRepository implements IMedicationsRepository {
   }
 
   public async findById (id: string): Promise<Medications | null> {
-    const ObjectId = require('mongodb').ObjectId
-
     const medication = await this.ormRepository.findOneBy({
-      // @ts-expect-error
-      _id: new ObjectId(id)
+      id
     })
 
     return medication
   }
 
   public async findByUser (userId: string): Promise<Medications[] | null> {
-    const ObjectId = require('mongodb').ObjectId
-
+    console.log('TURBO >> file: medications_repository.ts:34 >> MedicationsRepository >> userId:', userId)
     const medications = await this.ormRepository.findBy({
-      // @ts-expect-error
-      userId: new ObjectId(userId)
+      userId
     })
 
     return medications
   }
 
   public async deleteById (id: string): Promise<void> {
-    const ObjectId = require('mongodb').ObjectId
-
     await this.ormRepository.delete({
 
-      id: new ObjectId(id)
+      id
     })
   }
 }

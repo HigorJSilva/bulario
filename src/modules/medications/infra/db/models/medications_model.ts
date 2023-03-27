@@ -19,6 +19,9 @@ class Medications implements IMedications {
   @Column()
   name: string
 
+  @Column()
+  userId: string
+
   @ManyToOne(() => User, (user) => user.medications, {
     onDelete: 'NO ACTION',
   })

@@ -17,7 +17,7 @@ class UsersRepository implements IUsersRepository {
 
     await this.ormRepository.save(user)
 
-    return user as IUser
+    return user
   }
 
   public async save (user: User): Promise<User> {
@@ -35,11 +35,8 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async findById (id: string): Promise<IUser | null> {
-    const ObjectId = require('mongodb').ObjectId
-
     const user = await this.ormRepository.findOneBy({
-      // @ts-expect-error
-      _id: new ObjectId(id)
+      id
     })
 
     return user
