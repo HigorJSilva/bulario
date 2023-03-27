@@ -12,31 +12,23 @@ class MedicinesRepository implements IMedicinesRepository {
     this.ormRepository = AppDataSource.getRepository(Medicines)
   }
 
-  public async create ({ name, registryNumber, userId }: ICreateMedicine): Promise<IMedicines> {
-    const user = this.ormRepository.create()
+  public async create ({ name, registryNumber }: ICreateMedicine): Promise<IMedicines> {
+    const medicine = this.ormRepository.create({ name, registryNumber })
 
-    await this.ormRepository.save(user)
+    await this.ormRepository.save(medicine)
 
-    return user as IMedicines
+    return medicine as IMedicines
   }
 
-  public async findById (id: string): Promise<IMedicines | null> {
-    const ObjectId = require('mongodb').ObjectId
-
-    const medicines = await this.ormRepository.findOneBy({
-      // @ts-expect-error
-      _id: new ObjectId(id)
-    })
-
+  public async createBulk (data: ICreateMedicine[]): Promise<Medicines[]> {
+    const medicines = this.ormRepository.create(data)
+    await this.ormRepository.insert(medicines)
     return medicines
   }
 
-  public async findByUser (userId: string): Promise<IMedicines[] | null> {
-    const ObjectId = require('mongodb').ObjectId
-
-    const medicines = await this.ormRepository.findBy({
-      // @ts-expect-error
-      userId: new ObjectId(userId)
+  public async findById (id: string): Promise<IMedicines | null> {
+    const medicines = await this.ormRepository.findOneBy({
+      id
     })
 
     return medicines
