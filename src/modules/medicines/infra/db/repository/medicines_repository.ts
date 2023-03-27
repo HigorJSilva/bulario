@@ -33,6 +33,12 @@ class MedicinesRepository implements IMedicinesRepository {
 
     return medicines
   }
+
+  public async deleteById (id: string): Promise<void> {
+    await this.ormRepository.delete({
+      id
+    })
+  }
 }
 
 export default MedicinesRepository

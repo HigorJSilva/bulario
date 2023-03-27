@@ -1,9 +1,11 @@
 
+import DeleteMedicineService from '@modules/medicines/services/delete_mecine_service'
 import GetMedicineApiService from '@modules/medicines/services/get_medicine_api_service'
 import SearchMedicineApiService from '@modules/medicines/services/search_medicine_api_service'
 import AppResponse from '@shared/helpers/AppResponse'
 import { getSanitizedRequest } from '@shared/infra/http/middlewares/sanitize_request'
 import { NextFunction, Request, Response } from 'express'
+import { container } from 'tsyringe'
 
 class MedicineController {
   public async search (request: Request, response: Response, next: NextFunction): Promise<Response> {
@@ -30,6 +32,19 @@ class MedicineController {
       next(error)
 
       return null
+    }
+  }
+
+  public async delete (request: Request, response: Response, next: NextFunction): Promise<Response | undefined> {
+    try {
+      const deleteData = getSanitizedRequest(request)
+
+      const deleteMedicineService = container.resolve(DeleteMedicineService)
+      const medicine = await deleteMedicineService.run(deleteData.id)
+      next()
+      return response.json(medicine)
+    } catch (error) {
+      next(error)
     }
   }
 }
