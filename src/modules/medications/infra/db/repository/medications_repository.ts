@@ -23,8 +23,13 @@ class MedicationsRepository implements IMedicationsRepository {
   }
 
   public async findById (id: string): Promise<Medications | null> {
-    const medication = await this.ormRepository.findOneBy({
-      id
+    const medication = await this.ormRepository.findOne({
+      relations: {
+        medicines: true
+      },
+      where: {
+        id
+      }
     })
 
     return medication
