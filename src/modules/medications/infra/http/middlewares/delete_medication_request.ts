@@ -5,5 +5,4 @@ export const DeleteMedicationRequest = [
 
   param('id')
     .notEmpty().withMessage(requiredMessage)
-    .isMongoId()
 ]

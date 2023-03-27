@@ -1,13 +1,13 @@
+import env from '@config/env'
 import { DataSource } from 'typeorm'
 
 const AppDataSource = new DataSource({
-  type: 'mongodb',
-  host: 'mongo',
-  port: 27017,
-  database: 'bulario',
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  synchronize: false,
+  type: 'mysql',
+  host: env.mysqlHost,
+  port: env.mysqlPort as number,
+  username: env.mysqlUser,
+  password: env.mysqlPassword,
+  database: env.mysqlDatabase,
   migrations: [
     './migrations/*.ts'
   ],

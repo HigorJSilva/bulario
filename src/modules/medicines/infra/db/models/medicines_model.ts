@@ -5,13 +5,13 @@ import {
   Entity,
   UpdateDateColumn,
   CreateDateColumn,
-  ObjectIdColumn,
-  ManyToOne
+  ManyToOne,
+  PrimaryGeneratedColumn
 } from 'typeorm'
 
 @Entity('medicines')
 class Medicines implements IMedicines {
-  @ObjectIdColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string
   
   @Column()

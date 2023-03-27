@@ -5,6 +5,7 @@ export interface IMedications {
   id: string
   user: IUser
   name: string
+  userId: string
   medicines: IMedicines[]
   created_at: Date
   updated_at: Date

@@ -6,18 +6,21 @@ import {
   Entity,
   UpdateDateColumn,
   CreateDateColumn,
-  ObjectIdColumn,
   ManyToOne,
-  OneToMany
+  OneToMany,
+  PrimaryGeneratedColumn
 } from 'typeorm'
 
 @Entity('medications')
 class Medications implements IMedications {
-  @ObjectIdColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()
   name: string
+
+  @Column()
+  userId: string
 
   @ManyToOne(() => User, (user) => user.medications, {
     onDelete: 'NO ACTION',
