@@ -21,7 +21,7 @@ class MedicineController {
 
   public async search (request: Request, response: Response, next: NextFunction): Promise<Response> {
     const { productName, page } = getSanitizedRequest(request)
-    const searchMedicineService = new SearchMedicineApiService()
+    const searchMedicineService = container.resolve(SearchMedicineApiService)
     const medicines = await searchMedicineService.run({ productName, page })
 
     next()
@@ -31,7 +31,7 @@ class MedicineController {
   public async get (request: Request, response: Response, next: NextFunction): Promise<Response | null> {
     try {
       const { processNumber } = getSanitizedRequest(request)
-      const getMedicineService = new GetMedicineApiService()
+      const getMedicineService = container.resolve(GetMedicineApiService)
       const medicine = await getMedicineService.run(processNumber)
 
       if (medicine) {
