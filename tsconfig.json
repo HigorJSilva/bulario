@@ -26,5 +26,7 @@
       ]
     },
     "strictPropertyInitialization": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   }
 }
