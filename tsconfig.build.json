@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  
+  "exclude":[
+    "build",
+    "*.spec.ts",
+    "jest.config.ts",
+    "./coverage"
+  ]
+}
