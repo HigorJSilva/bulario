@@ -29,7 +29,7 @@ class User implements IUser {
   password: string
 
   @Column({
-    type: "enum",
+    type: "varchar",
     enum: UserRole,
     default: UserRole.USER,
   })
