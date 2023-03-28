@@ -11,6 +11,7 @@ import { NextFunction, Request, Response } from 'express'
 import { container } from 'tsyringe'
 import GetLeafletSideEffectsService from '@modules/leaflets/services/get_leaflet_side_effects_service'
 import Medicines from '../../db/models/medicines_model'
+import UpdateMedicineService from '@modules/medicines/services/update_medicine_service'
 
 class MedicineController {
   constructor () {
@@ -65,6 +66,7 @@ class MedicineController {
     }).catch(() => {
       next(new Error('generate side effects error'))
     })
+    next()
     return response.json(AppResponse(true, 'gerando resultado', null, null))
   }
 
@@ -74,24 +76,44 @@ class MedicineController {
     const medication = await getMedicationService.run(id)
 
     for (const medicine of medication.medicines) {
+      if (medicine.sideEffects) {
+        continue
+      }
       console.log(`Looking for ${medicine.name}`)
 
-      const leafletId = await this.getLeafletId(medicine)
+      let leafletId = await this.getLeafletId(medicine)
 
       if (!leafletId) {
         console.log(`${medicine.name} not found `)
         continue
       }
 
-      const leafletPdf = await this.getLeafletPdf(leafletId)
+      let leafletPdf
+      let sideEffect
 
-      if (!leafletPdf) {
-        console.log(`${medicine.name} PDF not found `)
+      while (true) {
+        try {
+          leafletPdf = await this.getLeafletPdf(leafletId as string)
+
+          if (!leafletPdf) {
+            console.log(`${medicine.name} PDF not found `)
+            break
+          }
+
+          sideEffect = await this.getSideEffects(leafletPdf)
+          break
+        } catch (error) {
+          leafletId = await this.getLeafletId(medicine)
+        }
+      }
+
+      if (!sideEffect) {
         continue
       }
 
-      // TODO: store in database
-      await this.getSideEffects(leafletPdf)
+      medicine.sideEffects = sideEffect
+      const updateMedicineService = container.resolve(UpdateMedicineService)
+      await updateMedicineService.run(medicine)
     }
   }
 
@@ -103,7 +125,7 @@ class MedicineController {
       return null
     }
 
-    return response[0].idBulaPacienteProtegido
+    return response[0].idBulaPacienteProtegido ?? null
   }
 
   private async getLeafletPdf (leafletId: string): Promise <Buffer | null> {

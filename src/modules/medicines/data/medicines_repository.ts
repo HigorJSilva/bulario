@@ -6,6 +6,7 @@ export interface IMedicinesRepository {
 
   create(data: ICreateMedicine): Promise<IMedicines>
   createBulk (data: ICreateMedicine[]): Promise<Medicines[]>
+  update (medicine: Medicines): Promise<Medicines>
   findById(id: string): Promise<IMedicines | null>
   deleteById (id: string): Promise<void>
 }
