@@ -39,6 +39,18 @@ class MedicinesRepository implements IMedicinesRepository {
       id
     })
   }
+
+  public async update (medicine: Medicines): Promise<Medicines> {
+    const id = medicine.id
+    const med = await this.ormRepository.findOne({
+      where: { id }
+    })
+
+    return this.ormRepository.save({
+      ...med,
+      ...medicine
+    })
+  }
 }
 
 export default MedicinesRepository

@@ -8,8 +8,8 @@ export interface Medicine {
   numeroTransacao: String
   data: Date
   numProcesso: String
-  idBulaPacienteProtegido: String
-  idBulaProfissionalProtegido: String
+  idBulaPacienteProtegido: string
+  idBulaProfissionalProtegido: string
   dataAtualizacao: Date
 }
 

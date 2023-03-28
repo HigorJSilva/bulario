@@ -13,5 +13,6 @@ const medicineController = new MedicineController()
 router.get('/:processNumber', GetMedicineRequest, validateRequest, medicineController.get)
 router.get('/', SearchMedicineRequest, validateRequest, medicineController.search)
 router.delete('/:id', authorize(), DeleteMedicineRequest, validateRequest, medicineController.delete)
+router.get('/generate/:id', authorize(), DeleteMedicineRequest, validateRequest, medicineController.generateSideEffecs)
 
 export default router

@@ -20,6 +20,9 @@ class Medicines implements IMedicines {
   @Column()
   name: string
 
+  @Column({nullable: true})
+  sideEffects: string
+
   @ManyToOne(() => Medications, (medications) => medications.medicines)
   medication: Medications
 

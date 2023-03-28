@@ -1,4 +1,7 @@
 
+import GetLeafletApiService from '@modules/leaflets/services/get_leaflet_api_service'
+import GetMedicationService from '@modules/medications/services/get_medication_service'
+import GetLeafletAsTextService from '@modules/leaflets/services/get_leaflet_as_text_service'
 import DeleteMedicineService from '@modules/medicines/services/delete_mecine_service'
 import GetMedicineApiService from '@modules/medicines/services/get_medicine_api_service'
 import SearchMedicineApiService from '@modules/medicines/services/search_medicine_api_service'
@@ -6,12 +9,20 @@ import AppResponse from '@shared/helpers/AppResponse'
 import { getSanitizedRequest } from '@shared/infra/http/middlewares/sanitize_request'
 import { NextFunction, Request, Response } from 'express'
 import { container } from 'tsyringe'
+import GetLeafletSideEffectsService from '@modules/leaflets/services/get_leaflet_side_effects_service'
+import Medicines from '../../db/models/medicines_model'
+import UpdateMedicineService from '@modules/medicines/services/update_medicine_service'
 
 class MedicineController {
+  constructor () {
+    this.getSideEffectsFromMedication = this.getSideEffectsFromMedication.bind(this)
+    this.generateSideEffecs = this.generateSideEffecs.bind(this)
+  }
+
   public async search (request: Request, response: Response, next: NextFunction): Promise<Response> {
     const { productName, page } = getSanitizedRequest(request)
-    const searchMedicineService = new SearchMedicineApiService()
-    const medicines = await searchMedicineService.run(productName, page)
+    const searchMedicineService = container.resolve(SearchMedicineApiService)
+    const medicines = await searchMedicineService.run({ productName, page })
 
     next()
     return response.json(medicines)
@@ -20,7 +31,7 @@ class MedicineController {
   public async get (request: Request, response: Response, next: NextFunction): Promise<Response | null> {
     try {
       const { processNumber } = getSanitizedRequest(request)
-      const getMedicineService = new GetMedicineApiService()
+      const getMedicineService = container.resolve(GetMedicineApiService)
       const medicine = await getMedicineService.run(processNumber)
 
       if (medicine) {
@@ -46,6 +57,95 @@ class MedicineController {
     } catch (error) {
       next(error)
     }
+  }
+
+  public generateSideEffecs (request: Request, response: Response, next: NextFunction): Response {
+    const { id } = getSanitizedRequest(request)
+    this.getSideEffectsFromMedication(id).then(() => {
+      // TODO: notify user
+    }).catch(() => {
+      next(new Error('generate side effects error'))
+    })
+    next()
+    return response.json(AppResponse(true, 'gerando resultado', null, null))
+  }
+
+  public async getSideEffectsFromMedication (id: string): Promise<void> {
+    const getMedicationService = container.resolve(GetMedicationService)
+
+    const medication = await getMedicationService.run(id)
+
+    for (const medicine of medication.medicines) {
+      if (medicine.sideEffects) {
+        continue
+      }
+      console.log(`Looking for ${medicine.name}`)
+
+      let leafletId = await this.getLeafletId(medicine)
+
+      if (!leafletId) {
+        console.log(`${medicine.name} not found `)
+        continue
+      }
+
+      let leafletPdf
+      let sideEffect
+
+      while (true) {
+        try {
+          leafletPdf = await this.getLeafletPdf(leafletId as string)
+
+          if (!leafletPdf) {
+            console.log(`${medicine.name} PDF not found `)
+            break
+          }
+
+          sideEffect = await this.getSideEffects(leafletPdf)
+          break
+        } catch (error) {
+          leafletId = await this.getLeafletId(medicine)
+        }
+      }
+
+      if (!sideEffect) {
+        continue
+      }
+
+      medicine.sideEffects = sideEffect
+      const updateMedicineService = container.resolve(UpdateMedicineService)
+      await updateMedicineService.run(medicine)
+    }
+  }
+
+  private async getLeafletId (medicine: Medicines): Promise <string | null> {
+    const searchMedicineService = container.resolve(SearchMedicineApiService)
+    const response = await searchMedicineService.run({ registryNumber: medicine.registryNumber })
+
+    if (!response) {
+      return null
+    }
+
+    return response[0].idBulaPacienteProtegido ?? null
+  }
+
+  private async getLeafletPdf (leafletId: string): Promise <Buffer | null> {
+    const getLeafletAsPdf = container.resolve(GetLeafletApiService)
+    const leafletPdf = await getLeafletAsPdf.run(leafletId)
+
+    if (!leafletPdf) {
+      return null
+    }
+
+    return leafletPdf
+  }
+
+  private async getSideEffects (leafletPdf: Buffer): Promise<string | null> {
+    const leafletAstextService = container.resolve(GetLeafletAsTextService)
+    const leafletText = await leafletAstextService.run(leafletPdf)
+
+    const getLeafletSideEffectsService = new GetLeafletSideEffectsService()
+    const sideEffects = getLeafletSideEffectsService.run(leafletText)
+    return sideEffects
   }
 }
 export default MedicineController

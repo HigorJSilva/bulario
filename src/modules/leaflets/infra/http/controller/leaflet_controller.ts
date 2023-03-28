@@ -7,7 +7,7 @@ import { getSanitizedRequest } from '@shared/infra/http/middlewares/sanitize_req
 import { notFound } from '@shared/messages/en'
 import { NextFunction, Request, Response } from 'express'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { inject, injectable } from 'tsyringe'
+import { container, inject, injectable } from 'tsyringe'
 @injectable()
 class LeafletController {
   constructor (
@@ -29,7 +29,7 @@ class LeafletController {
         return response.json(AppResponse(false, notFound('Leaflet'), null, null))
       }
 
-      const leafletAstextService = new GetLeafletAsTextService()
+      const leafletAstextService = container.resolve(GetLeafletAsTextService)
       const leafletText = await leafletAstextService.run(leafletPdf)
 
       return response.json(AppResponse(true, null, leafletText, null))
@@ -70,10 +70,10 @@ class LeafletController {
         return response.json(AppResponse(false, notFound('Leaflet'), null, null))
       }
 
-      const leafletAstextService = new GetLeafletAsTextService()
+      const leafletAstextService = container.resolve(GetLeafletAsTextService)
       const leafletText = await leafletAstextService.run(leafletPdf)
 
-      const getLeafletSideEffectsService = new GetLeafletSideEffectsService()
+      const getLeafletSideEffectsService = container.resolve(GetLeafletSideEffectsService)
       const sideEffects = getLeafletSideEffectsService.run(leafletText)
 
       return response.json(AppResponse(true, null, sideEffects, null))
@@ -89,7 +89,7 @@ class LeafletController {
     if (hasLeafletPdf) {
       leafletPdf = hasLeafletPdf
     } else {
-      const getLeafletService = new GetLeafletApiService()
+      const getLeafletService = container.resolve(GetLeafletApiService)
       leafletPdf = await getLeafletService.run(leafletId)
     }
     return leafletPdf
