@@ -13,7 +13,8 @@ const cache: ICacheConfig = {
     redis: {
       host: env.redisHost,
       port: env.redisPort as unknown as number,
-      password: env.redisPass || undefined
+      password: env.redisPass || undefined,
+      lazyConnect: true
     }
   },
   driver: env.cacheDriver

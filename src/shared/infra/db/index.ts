@@ -13,7 +13,7 @@ import { AddSideEffectsToMedicine1679939067730 } from './migrations/167993906773
 const AppDataSource = new DataSource({
   type: 'postgres',
   host: env.postgresHost,
-  port: env.postgresPort,
+  port: env.postgresPort as number,
   username: env.postgresUser,
   password: env.postgresPassword,
   database: env.postgresDatabase,

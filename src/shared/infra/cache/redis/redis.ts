@@ -1,28 +1,33 @@
 import Redis, { Redis as RedisClient } from 'ioredis'
 import cacheConfig from '@config/cache'
+import { ICacheProvider } from '@shared/data/cache_provider_interface'
 
-class RedisCache {
-  public readonly client: RedisClient;
-  private readonly connected: boolean = false;
+class RedisCache implements ICacheProvider {
+  public client: RedisClient;
+  private connected: boolean = false
 
-  constructor () {
-    if (!this.connected) {
-      this.client = new Redis(cacheConfig.config.redis)
-        .on('error', function (error) {
-          console.dir(`Redis error: ${error}`)
-        }).on('connect', function () {
-          console.log('Redis running')
-        })
+  public async connect (): Promise<void> {
+    if (this.connected) {
+      return
     }
 
+    this.client = new Redis(cacheConfig.config.redis)
+    await this.client.connect()
     this.connected = true
   }
 
   public async save (key: string, value: any): Promise<void> {
+    if (!this.connected) {
+      await this.connect()
+    }
+
     await this.client.set(key, JSON.stringify(value))
   }
 
   public async recover<T> (key: string): Promise<T | null> {
+    if (!this.connected) {
+      await this.connect()
+    }
     const data = await this.client.get(key)
 
     if (!data) {

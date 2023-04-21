@@ -1,8 +1,8 @@
 export default {
   cacheDriver: process.env.CACHE_DRIVER ?? 'redis',
-  redisHost: process.env.REDIS_HOST ?? 'localhost',
+  redisHost: process.env.REDIS_HOST ?? 'redis',
   redisPort: process.env.REDIS_PORT ?? '6379',
-  redisPass: process.env.redisPass ?? null,
+  redisPass: process.env.REDIS_PASS ?? null,
 
   databaseDriver: process.env.DATABASE_DRIVER ?? 'mongodb',
   mongoUrlConnection: process.env.MONGO_URL_CONNECTION ?? 'mongodb://mongo:27017/bulario',
