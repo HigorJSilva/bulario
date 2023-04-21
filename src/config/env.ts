@@ -14,6 +14,12 @@ export default {
   mysqlDatabase: process.env.MYSQL_DATABASE ?? 'bulario',
 
   appSecret: process.env.APP_SECRET ?? '389127R8232HDAS7dwasd7',
-  enviroment: process.env.enviroment ?? 'dev'
+  enviroment: process.env.enviroment ?? 'dev',
+
+  postgresHost: 'postgres',
+  postgresPort: 5432,
+  postgresUser: 'postgres',
+  postgresPassword: 'password',
+  postgresDatabase: 'bulario'
 
 }

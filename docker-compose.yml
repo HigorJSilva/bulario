@@ -52,5 +52,16 @@ services:
       - /etc/localtime:/etc/localtime:ro
     command: ["sh", "-c", "tail -f /dev/null"]
 
+  postgres:
+    build: .docker/postgres
+    container_name: bulario-db
+    restart: always
+    tty: true
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=bulario
+
 volumes:
   data:
