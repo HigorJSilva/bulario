@@ -26,7 +26,13 @@ const AppDataSource = new DataSource({
     AddMedicationIdToMedicines1679873459415,
     AddSideEffectsToMedicine1679939067730
   ],
-  synchronize: true
+  synchronize: true,
+  ssl: true,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false
+    }
+  }
 })
 
 export default AppDataSource
