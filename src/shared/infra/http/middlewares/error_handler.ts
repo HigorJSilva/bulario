@@ -3,8 +3,6 @@ import AppResponse from '@shared/helpers/AppResponse'
 import { internalError, unauthenticatedUser, unauthorizedUser } from '@shared/messages/en'
 import { Request, Response, NextFunction } from 'express'
 
-export = errorHandler;
-
 function errorHandler (err: TypeError, _: Request, res: Response, next: NextFunction): void {
   switch (true) {
     case err instanceof UnauthorizedError:
@@ -54,3 +52,5 @@ function errorHandler (err: TypeError, _: Request, res: Response, next: NextFunc
 
   next()
 }
+
+export default errorHandler

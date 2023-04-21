@@ -1,6 +1,8 @@
 import env from '@config/env'
 import { DataSource } from 'typeorm'
 
+const migrationPaths: string[] = env.enviroment !== 'production' ? ['./migrations/{.ts,.js}'] : []
+
 const AppDataSource = new DataSource({
   type: 'mysql',
   host: env.mysqlHost,
@@ -8,10 +10,8 @@ const AppDataSource = new DataSource({
   username: env.mysqlUser,
   password: env.mysqlPassword,
   database: env.mysqlDatabase,
-  migrations: [
-    './migrations/*.ts'
-  ],
-  entities: ['**/db/models/*.ts']
+  migrations: migrationPaths,
+  entities: ['**/db/models/*.js']
 })
 
 export default AppDataSource
