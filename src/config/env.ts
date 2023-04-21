@@ -16,10 +16,10 @@ export default {
   appSecret: process.env.APP_SECRET ?? '389127R8232HDAS7dwasd7',
   enviroment: process.env.enviroment ?? 'dev',
 
-  postgresHost: 'postgres',
-  postgresPort: 5432,
-  postgresUser: 'postgres',
-  postgresPassword: 'password',
-  postgresDatabase: 'bulario'
+  postgresHost: process.env.POSTGRES_HOST ?? 'postgres',
+  postgresPort: process.env.POSTGRES_PORT ?? 5432,
+  postgresUser: process.env.POSTGRES_USER ?? 'postgres',
+  postgresPassword: process.env.POSTGRES_PASSWORD ?? 'password',
+  postgresDatabase: process.env.POSTGRES_DATABASE ?? 'bulario'
 
 }
