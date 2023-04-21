@@ -28,7 +28,7 @@ export class CreateUsers1679872771237 implements MigrationInterface {
           },
           {
             name: 'role',
-            default: `"${UserRole.USER}"`,
+            default: `'${UserRole.USER}'`,
             type: 'varchar'
           },
           {
