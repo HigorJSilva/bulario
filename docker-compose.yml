@@ -14,8 +14,10 @@ services:
       - .env
     expose:
       - '4000'
+      - '9229'
     ports:
       - '4000:4000'
+      - "9229:9229"
     command: npm run dev
   redis:
     image: redis:7.0.4-alpine
