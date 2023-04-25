@@ -1,0 +1,372 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "BULARIO API",
+    "description": "Routes available for the use of the api"
+  },
+  "host": "bulario.higorsilva.dev",
+
+  "basePath": "/",
+  "schemes":["https"],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": ">- Enter the token with the `Bearer: ` prefix, e.g. 'Bearer abcde12345'"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/leaflets": {
+      "post": {
+        "tags":["leaflet"],
+        "description": "Get leaflet as text from leafletId and registryNumber",
+        "parameters": [
+          {
+            "$ref": "#/parameters/leaflets"
+          }  
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/leaflets/pdf": {
+      "post": {
+        "tags":["leaflet"],
+        "description": "Get leaflet PDF from leafletId and registryNumber",
+        "parameters": [
+          {
+            "$ref": "#/parameters/leaflets"
+          }  
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/leaflets/side-effects": {
+      "post": {
+        "tags":["leaflet"],
+        "description": "Get side effects from leafletId and registryNumbe",
+        "parameters": [
+          {
+            "$ref": "#/parameters/leaflets"
+          }  
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/medications": {
+      "get": {
+        "tags":["medications"],
+        "description": "Get users saved medications",
+        "security": [
+          { "Bearer":[] }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags":["medications"],
+        "description": "Store a medication",
+        "security": [
+          { "Bearer":[] }
+        ],
+        "parameters": [
+          {"$ref": "#/parameters/medications"}
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/medications/{id}": {
+      "put": {
+        "tags":["medications"],
+        "description": "Show a medication",
+        "security": [
+          { "Bearer":[] }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      },
+      "delete": {
+        "tags":["medications"],
+        "description": "Deletes a medication",
+        "security": [
+          { "Bearer":[] }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/medicines/{processNumber}": {
+      "get": {
+        "tags":["medicines"],
+        "description": "List a medicine by processNumber",
+        "parameters": [
+          {
+            "name": "processNumber",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/medicines": {
+      "get": {
+        "tags":["medicines"],
+        "description": "List medicines",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/medicines/{id}": {
+      "delete": {
+        "tags":["medicines"],
+        "description": "Deletes a medicine",
+        "security": [
+          { "Bearer":[] }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/medicines/generate/{id}": {
+      "get": {
+        "tags":["medicines"],
+        "description": "Generates side effects given medication id",
+        "security": [
+          { "Bearer":[] }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags":["users"],
+        "description": "Authenticates an user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "users",
+            "description": "login an user",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags":["users"],
+        "description": "Register a user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "users",
+            "description": "login an user",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "email",
+                "password"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "leaflets": {
+      "in": "body",
+      "name": "leaflets",
+      "description": "Get leaflet from leafletId and registryNumber",
+      "schema": {
+        "type": "object",
+        "required": [
+          "leafletId",
+          "registryNumber"
+        ],
+        "properties": {
+          "leafletId": {
+            "type": "string"
+          },
+          "registryNumber": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "medications": {
+      "in": "body",
+      "name": "medications",
+      "description": "Medications",
+      "schema": {
+        "type": "object",
+        "required": [
+          "name",
+          "medicines"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "medicines": {
+            "type": "array",
+            "items":{
+              "type": "object",
+              "properties":{
+                "name": {
+                  "type": "string"
+                },
+                "registryNumber": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
