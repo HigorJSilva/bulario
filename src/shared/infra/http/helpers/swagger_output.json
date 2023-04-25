@@ -24,48 +24,76 @@
     "application/json"
   ],
   "paths": {
-    "/leaflets": {
+    "/users/login": {
       "post": {
-        "tags":["leaflet"],
-        "description": "Get leaflet as text from leafletId and registryNumber",
+        "tags":["users"],
+        "description": "Authenticates an user",
         "parameters": [
           {
-            "$ref": "#/parameters/leaflets"
-          }  
+            "in": "body",
+            "name": "users",
+            "description": "login an user",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "422": {
             "description": "Unprocessable Entity"
           }
         }
       }
     },
-    "/leaflets/pdf": {
+    "/users": {
       "post": {
-        "tags":["leaflet"],
-        "description": "Get leaflet PDF from leafletId and registryNumber",
+        "tags":["users"],
+        "description": "Register a user",
         "parameters": [
           {
-            "$ref": "#/parameters/leaflets"
-          }  
-        ],
-        "responses": {
-          "422": {
-            "description": "Unprocessable Entity"
+            "in": "body",
+            "name": "users",
+            "description": "login an user",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "email",
+                "password"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
           }
-        }
-      }
-    },
-    "/leaflets/side-effects": {
-      "post": {
-        "tags":["leaflet"],
-        "description": "Get side effects from leafletId and registryNumbe",
-        "parameters": [
-          {
-            "$ref": "#/parameters/leaflets"
-          }  
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "422": {
             "description": "Unprocessable Entity"
           }
@@ -152,6 +180,54 @@
         }
       }
     },
+    "/leaflets": {
+      "post": {
+        "tags":["leaflet"],
+        "description": "Get leaflet as text from leafletId and registryNumber",
+        "parameters": [
+          {
+            "$ref": "#/parameters/leaflets"
+          }  
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/leaflets/pdf": {
+      "post": {
+        "tags":["leaflet"],
+        "description": "Get leaflet PDF from leafletId and registryNumber",
+        "parameters": [
+          {
+            "$ref": "#/parameters/leaflets"
+          }  
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/leaflets/side-effects": {
+      "post": {
+        "tags":["leaflet"],
+        "description": "Get side effects from leafletId and registryNumbe",
+        "parameters": [
+          {
+            "$ref": "#/parameters/leaflets"
+          }  
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
     "/medicines/{processNumber}": {
       "get": {
         "tags":["medicines"],
@@ -227,82 +303,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          }
-        }
-      }
-    },
-    "/users/login": {
-      "post": {
-        "tags":["users"],
-        "description": "Authenticates an user",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "users",
-            "description": "login an user",
-            "schema": {
-              "type": "object",
-              "required": [
-                "email",
-                "password"
-              ],
-              "properties": {
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          }
-        }
-      }
-    },
-    "/users": {
-      "post": {
-        "tags":["users"],
-        "description": "Register a user",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "users",
-            "description": "login an user",
-            "schema": {
-              "type": "object",
-              "required": [
-                "name",
-                "email",
-                "password"
-              ],
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                }
-              }
-            }
           }
         ],
         "responses": {
