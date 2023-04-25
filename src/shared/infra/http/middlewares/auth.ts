@@ -22,7 +22,13 @@ export function authorize (roles: string[] | string = []): any {
       const jwtProvider = container.resolve<IJwtProvider>('JwtProvider')
       const usersRepository = container.resolve<IUsersRepository>('UsersRepository')
 
-      const decodedToken = jwtProvider.verify<IUser>(token.split(' ')[1])
+      let decodedToken
+      try {
+        decodedToken = jwtProvider.verify<IUser>(token.split(' ')[1])
+      } catch (error) {
+        next(new UnauthenticatedError())
+        return
+      }
       const user: IUser | null = await usersRepository.findById(decodedToken.id)
 
       if (!user) {
