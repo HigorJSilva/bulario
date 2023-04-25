@@ -14,5 +14,6 @@ router.get('/', authorize(), medicationController.list)
 router.post('/', authorize(), CreateMedicationRequest, validateRequest, medicationController.create)
 router.put('/:id', authorize(), UpdateMedicationRequest, validateRequest, medicationController.update)
 router.delete('/:id', authorize(), DeleteMedicationRequest, validateRequest, medicationController.delete)
+router.get('/side-effects/:id', authorize(), DeleteMedicationRequest, validateRequest, medicationController.getSideEffecs)
 
 export default router

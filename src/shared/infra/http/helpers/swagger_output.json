@@ -180,6 +180,28 @@
         }
       }
     },
+    "/medications/side-effects/{id}": {
+      "get": {
+        "tags":["medications"],
+        "description": "Get side effects from each medicine in the medication",
+        "security": [
+          { "Bearer":[] }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/leaflets": {
       "post": {
         "tags":["leaflet"],
