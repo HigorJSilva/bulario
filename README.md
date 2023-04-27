@@ -3,12 +3,12 @@
 Bulário is an app to help you find if any of your medication is getting you an unwanted effect.
 
 Add medicines you are currently taking  to a medication and generate a log with all the side effects each one can have on you. 
- * Search by name using the `/medicines` routes get the `registry number` and ` protected id` 
- * Save then in a medication using  `/medications`.
+ * Search by name using the `/medicines` GET route get the `numeroRegistro` from the result
+ * Save how many you want in a medication using  `/medications` POST route.
  * Generate  the side effects using the route  `/medicines/generate`
  * Wait while we sort things up and use the route `/medications/side-effects` to get the result
 
-Check the API routes documentation [here](https://bulario.higorsilva.dev/api/).
+Check the APP [here](https://bulario.higorsilva.dev/api/).
 
 > ## Principles
 * Single Responsibility Principle (SRP)
