@@ -46,6 +46,10 @@
                 "password": {
                   "type": "string"
                 }
+              },
+              "example":{
+                "email": "bulario@gmail.com",
+                "password": "@Senha34"
               }
             }
           }
@@ -135,7 +139,7 @@
     "/medications/{id}": {
       "put": {
         "tags":["medications"],
-        "description": "Show a medication",
+        "description": "Edits a medication",
         "security": [
           { "Bearer":[] }
         ],
@@ -145,7 +149,8 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
+          },
+          {"$ref": "#/parameters/medications"}
         ],
         "responses": {
           "200": {
@@ -276,7 +281,24 @@
       "get": {
         "tags":["medicines"],
         "description": "List medicines",
-        "parameters": [],
+        "parameters": [
+           {
+            "in": "query",
+            "name": "productName",
+            "description": "Medicine name",
+            "schema": {
+              "type": "object",
+              "required": [
+                "productName"
+              ],
+              "properties": {
+                "productName": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -387,6 +409,27 @@
               }
             }
           }
+        },
+        "example":{
+          "name": "Skin care march",
+          "medicines": [
+              {
+                  "name": "DORALGINA",
+                  "registryNumber": "155840380"
+              },
+              {
+                  "name": "CETACONAZOL",
+                  "registryNumber": "104810094"
+              },
+              {
+                  "name": "LOSARTANA",
+                  "registryNumber": "155840428"
+              },
+              {
+                  "name": "terbinafina",
+                  "registryNumber": "105730619"
+              }
+          ]
         }
       }
     }
